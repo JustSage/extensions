@@ -1,7 +1,7 @@
 -- This file can be loaded as a telescope extension
 
 -- Custom theme picker
--- uses nvchad_theme global variable
+-- uses default_theme global variable
 -- Most of the code is copied from telescope colorscheme plugin, mostly for preview creation
 local function theme_switcher(opts)
    local pickers, finders, previewers, actions, action_state, utils, conf
@@ -18,14 +18,14 @@ local function theme_switcher(opts)
       error "Cannot find telescope!"
    end
 
-   local local_utils = require "nvchad"
+   local local_utils = require "utilities"
    local reload_theme = local_utils.reload_theme
 
    -- get a table of available themes
    local themes = local_utils.list_themes()
    if next(themes) ~= nil then
       -- save this to use it for later to restore if theme not changed
-      local current_theme = vim.g.nvchad_theme
+      local current_theme = vim.g.default_theme
       local new_theme = ""
       local change = false
 
@@ -74,7 +74,7 @@ local function theme_switcher(opts)
       end
 
       local picker = pickers.new {
-         prompt_title = "Set NvChad color",
+         prompt_title = "Set theme...",
          finder = finders.new_table(themes),
          previewer = previewer,
          sorter = conf.generic_sorter(opts),
@@ -112,15 +112,15 @@ local function theme_switcher(opts)
                if ans then
                   local_utils.change_theme(current_theme, final_theme)
                else
-                  -- will be used in restoring nvchad theme var
+                  -- will be used in restoring theme var
                   final_theme = current_theme
                end
             end
          else
             final_theme = current_theme
          end
-         -- set nvchad_theme global var
-         vim.g.nvchad_theme = final_theme
+         -- set default_theme global var
+         vim.g.default_theme = final_theme
       end
       -- launch the telescope picker
       picker:find()

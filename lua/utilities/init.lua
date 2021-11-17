@@ -3,7 +3,7 @@ local M = {}
 -- Edit user config file, based on the assumption it exists in the config as
 -- theme = "theme name"
 -- 1st arg as current theme, 2nd as new theme
-M.change_theme = require "nvchad.change_theme"
+M.change_theme = require "utilities.change_theme"
 
 -- clear command line from lua
 M.clear_cmdline = function()
@@ -99,13 +99,10 @@ end
 
 -- reload themes without restarting vim
 -- if no theme name given then reload the current theme
-M.reload_theme = require "nvchad.reload_theme"
+M.reload_theme = require "utilities.reload_theme"
 
 -- toggle between 2 themes
 -- argument should be a table with 2 theme names
-M.toggle_theme = require "nvchad.toggle_theme"
-
--- update nvchad
-M.update_nvchad = require "nvchad.update_nvchad"
+M.toggle_theme = require "utilities.toggle_theme"
 
 return M
